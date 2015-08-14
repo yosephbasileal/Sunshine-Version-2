@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 public class DetailActivity extends ActionBarActivity {
@@ -16,6 +18,11 @@ public class DetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -57,7 +64,18 @@ public class DetailActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            //get the message from intent
+            Intent intent = getActivity().getIntent();
+            String forecast = intent.getStringExtra(Intent.EXTRA_TEXT);
+
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+            //set text of the TextView
+            if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
+                TextView textView = (TextView) rootView.findViewById(R.id.details_text);
+                textView.setText(forecast);
+            }
+
             return rootView;
         }
     }
