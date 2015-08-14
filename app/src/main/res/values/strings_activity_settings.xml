@@ -1,26 +1,15 @@
 <resources>
 
-    <!-- Label for the location preference [CHAR LIMIT=30]-->
-    <string name="pref_location_label">Location</string>
-
-    <!-- Key name for storing location in SharedPreferences [CHAR LIMIT=NONE] -->
-    <string name="pref_location_key" translatable="false">location</string>
-
-    <!-- Default postal code for location preference [CHAR LIMIT=NONE} -->
-    <string name="pref_location_default" translatable="false">94043</string>
-
-    <!--<string-array name="pref_units_list_titles">
-        <item>Metric</item>
-        <item>Imperial</item>
+    <string-array name="pref_units_list_titles">
+        <item>@string/pref_units_label_metric</item>
+        <item>@string/pref_units_label_imperial</item>
     </string-array>
 
     <string-array name="pref_units_list_values">
-        <item>0</item>
-        <item>1</item>
+        <item>@string/pref_units_metric</item>
+        <item>@string/pref_units_imperial</item>
     </string-array>
 
-    <string name="pref_units_label">Pick Your Units</string>
-    <string name="pref_units_key" translatable="false">units</string>-->
 
 
     <!-- ____________________________________________________ -->
