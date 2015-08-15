@@ -9,7 +9,8 @@
     <string name="action_share">Share</string>
 
     <string name="action_openmap">Map Location</string>
-    <string name="title_activity_detail">Details</string>
+    <string name="title_activity_detail"></string>
+    <!--<string name="title_activity_detail">Details</string>-->
 
     <!-- Label for the location preference [CHAR LIMIT=30]-->
     <string name="pref_location_label">Location</string>
