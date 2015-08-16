@@ -10,7 +10,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_showmap"
+        android:id="@+id/action_map"
         android:title="@string/action_openmap"
         app:showAsAction="never" />
 </menu>
