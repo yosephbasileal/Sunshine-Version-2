@@ -214,6 +214,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         final String OWM_DESCRIPTION = "main";
         final String OWM_WEATHER_ID = "id";
 
+        Log.v(LOG_TAG, "forecastJsonStr: " + forecastJsonStr);
         try {
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
             JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
@@ -378,6 +379,8 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
                     .build();
 
             URL url = new URL(builtUri.toString());
+
+            Log.v(LOG_TAG, "openweathermap url: " + url);
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
