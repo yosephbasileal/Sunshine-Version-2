@@ -29,10 +29,12 @@ public class MainActivity extends ActionBarActivity {
     private final String FORECASTFRAGMENT_TAG = "FFTAG";
 
     private String mLocation;
+    private boolean mIsMetric;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLocation = Utility.getPreferredLocation(this);
+        mIsMetric = Utility.isMetric(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -103,6 +105,14 @@ public class MainActivity extends ActionBarActivity {
                 ff.onLocationChanged();
             }
             mLocation = location;
+        }
+
+        if (isMetric != mIsMetric) {
+            ForecastFragment ff = (ForecastFragment)getSupportFragmentManager().findFragmentByTag(FORECASTFRAGMENT_TAG);
+            if ( null != ff ) {
+                ff.onUnitsChanged();
+            }
+            mIsMetric = isMetric;
         }
     }
 }
