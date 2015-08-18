@@ -1,29 +1,27 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:key="@string/pref_location_key"
         android:title="@string/pref_location_label"
+        android:key="@string/pref_location_key"
         android:defaultValue="@string/pref_location_default"
         android:inputType="text"
-        android:singleLine="true"
-        android:maxLines="1" />
+        android:singleLine="true" />
 
-    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
-         dismiss it. -->
-    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
-        android:key="@string/pref_units_key"
         android:title="@string/pref_units_label"
+        android:key="@string/pref_units_key"
         android:defaultValue="@string/pref_units_metric"
         android:entries="@array/pref_units_list_titles"
         android:entryValues="@array/pref_units_list_values" />
 
-    <!--<CheckBoxPreference
-        android:key="example_checkbox"
-        android:title="@string/pref_title_social_recommendations"
-        android:summary="@string/pref_description_social_recommendations"
-        android:defaultValue="true" />-->
+    <CheckBoxPreference
+        android:title="@string/pref_enable_notifications_label"
+        android:key="@string/pref_enable_notifications_key"
+        android:summaryOff="@string/pref_enable_notifications_false"
+        android:summaryOn="@string/pref_enable_notifications_true"
+        android:defaultValue="@string/pref_enable_notifications_default" />
 
 </PreferenceScreen>
