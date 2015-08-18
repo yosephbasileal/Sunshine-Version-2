@@ -1,4 +1,5 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<fragment
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_forecast"
     android:name="com.example.android.sunshine.app.ForecastFragment"

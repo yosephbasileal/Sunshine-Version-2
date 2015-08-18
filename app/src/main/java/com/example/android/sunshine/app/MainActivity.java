@@ -25,20 +25,27 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback{
 
+    // Get name of class programatically so that we don't have to hard code, it
+    // in case we change it
     private final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static final String DETAILFRAGMENT_TAG = "FFTAG";
 
+    // Member variables to keep track of settings prefs and UI pane mode
     private String mLocation;
     private boolean mIsMetric;
     private boolean mTwoPane;
 
+    private static final String DETAILFRAGMENT_TAG = "FFTAG";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Get setting preferences
         mLocation = Utility.getPreferredLocation(this);
         mIsMetric = Utility.isMetric(this);
 
         setContentView(R.layout.activity_main);
+
         if (findViewById(R.id.weather_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts
             // (res/layout-sw600dp). If this view is present, then the activity should be
@@ -53,7 +60,9 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                         .commit();
             }
         } else {
+            // One pane mode
             mTwoPane = false;
+            // Add a shadow by elevating the action bar in one-pane mode
             getSupportActionBar().setElevation(0f);
         }
 
