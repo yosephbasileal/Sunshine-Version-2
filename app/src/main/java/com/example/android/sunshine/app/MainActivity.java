@@ -24,24 +24,30 @@ import android.view.MenuItem;
 
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
+/**
+ * Main activity which contains forecast fragment
+ */
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback{
 
     // Get name of class programatically so that we don't have to hard code, it
-    // in case we change it
+    // in case we change it.
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    // Member variables to keep track of settings prefs and UI pane mode
+    // Member variables to keep track of settings prefs and UI pane mode.
     private String mLocation;
     private boolean mIsMetric;
     private boolean mTwoPane;
 
+    // To be used to dynamically add a fragment when in two-pane mode.
     private static final String DETAILFRAGMENT_TAG = "FFTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Use bundle of state information if present.
         super.onCreate(savedInstanceState);
 
-        // Get setting preferences
+        // Get setting preferences.
         mLocation = Utility.getPreferredLocation(this);
         mIsMetric = Utility.isMetric(this);
 
@@ -61,18 +67,19 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                         .commit();
             }
         } else {
-            // One pane mode
+            // One pane mode.
             mTwoPane = false;
-            // Add a shadow by elevating the action bar in one-pane mode
+            // Add a shadow by elevating the action bar in one-pane mode.
             getSupportActionBar().setElevation(0f);
         }
 
+        // Use "Today" items expanded layout only if in two-pane mode.
         ForecastFragment forecastFragment =  ((ForecastFragment)getSupportFragmentManager()
                          .findFragmentById(R.id.fragment_forecast));
-                 forecastFragment.setUseTodayLayout(!mTwoPane);
+        forecastFragment.setUseTodayLayout(!mTwoPane);
 
+        // Initialize SyncAdapter with this activity's context.
         SunshineSyncAdapter.initializeSyncAdapter(this);
-
     }
 
     @Override
@@ -89,7 +96,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // Start SettingsActivity if clicked from menu items.
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
@@ -100,26 +107,35 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Get location and temperature unit preferences.
         String location = Utility.getPreferredLocation( this );
         boolean isMetric = Utility.isMetric(this);
 
-        // update the location in our second pane using the fragment manager
+        // Update the location and units using FragmentManager.
         if (location != null && (!location.equals(mLocation) || isMetric != mIsMetric)) {
+            // Update ForecastFragment.
             ForecastFragment ff = (ForecastFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
             if ( null != ff ) {
                 ff.onLocationChanged();
                 ff.onUnitsChanged();
             }
+            // Update DetailFragment if present. (if in two-pane mode)
             DetailFragment df = (DetailFragment) getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
             if (null != df) {
                 df.onLocationChanged(location);
                 df.onUnitsChanged(isMetric);
             }
+
+            // Save last used preferences as member variables.
             mLocation = location;
             mIsMetric = isMetric;
         }
     }
 
+    /**
+     * A method from a callback interface in ForecastFragment for handling item clicks.
+     * */
     @Override
     public void onItemSelected(Uri contentUri) {
         if (mTwoPane) {
@@ -136,7 +152,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                     .replace(R.id.weather_detail_container, fragment, DETAILFRAGMENT_TAG)
                     .commit();
         } else {
-            // one-pane mode
+            // In one-pane mode, start DetailActivity and pass URI of item with intent.
             Intent intent = new Intent(this, DetailActivity.class)
                     .setData(contentUri);
             startActivity(intent);
